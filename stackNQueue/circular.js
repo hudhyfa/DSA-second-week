@@ -1,6 +1,6 @@
 class Queue {
     constructor(capacity) {
-        const circle = new Array(capacity);
+        this.circle = new Array(capacity);
         this.capacity = capacity;
         this.currentLength = 0;
         this.back = -1;
