@@ -19,9 +19,36 @@ function merge(left, right) {
             sortedArr.push(right.shift());
         }
     }
-    return [...sortedArr, ...left, ...right];
+    return [...sortedArr, ...right, ...left];
 }
 
 // Time complexity is O(nlogn);
 
 console.log(mergeSort([1,29,8,23,13,12,93,123]));
+
+function ms(arr) {
+
+    if(arr.length < 2) return arr;
+
+    let mid = Math.floor(arr.length / 2);
+    let left = arr.slice(0, mid);
+    let right = arr.slice(mid);
+
+    return m(ms(left), ms(right));
+
+}
+
+function m(left, right) {
+
+    let sortedRay = [];
+
+    while(left.length && right.length) {
+        if(left[0] < right[0]) {
+            sortedRay.push(left.shift());
+        } else {
+            sortedRay.push(right.shift());
+        }
+    }
+
+    return [...sortedRay, ...left, ...right];
+}

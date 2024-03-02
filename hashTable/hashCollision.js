@@ -5,22 +5,22 @@ class HashTable {
     }
 
     hash(key) {
-        let newKey = 0;
+        let index = 0;
         for(let i = 0; i < key.length; i++) {
-            newKey += key.charCodeAt(i);
+            index += key.charCodeAt(i);
         }
-        return newKey % this.size;
+        return index;
     }
 
     set(key, value) {
-        let index = hash(key);
-        const bucket = this.table[index];
+        let index = this.hash(key);
+        let bucket = this.table[index];
         if(!bucket) {
-            bucket = [[key, value]];
+            this.table[index] = [[key, value]];
         } else {
-            let oldKey = bucket.find(elem => elem[0] === key);
-            if(oldKey) {
-                oldKey[1] = value;
+            let alreadyPresent = bucket.find(arr => arr[0] === key);
+            if(alreadyPresent) {
+                alreadyPresent[1] = value;
             } else {
                 bucket.push([key, value]);
             }
@@ -28,34 +28,32 @@ class HashTable {
     }
 
     get(key) {
-        let index = hash(key);
-        const bucket = this.table[index];
+        let index = this.hash(key);
+        let bucket = this.table[index];
         if(bucket) {
-            const result = bucket.find(elem => elem[0] === key);
-            return result[1];
+            let keyRay = bucket.find(arr => arr[0] === key);
+            if(keyRay) return keyRay[1];
         }
         return undefined;
     }
 
     remove(key) {
-        let index = hash(key);
-        const bucket = this.table[index];
+        let index = this.hash(key);
+        let bucket = this.table[index];
         if(bucket) {
-            const result = bucket.find(elem => elem[0] === key);
-            if(result) {
-                bucket.splice(bucket.indexOf(result), 1);
-            }
-        }
-        return undefined;
-    }
-
-    display() {
-        for(let i = 0; i < this.table.length; i++) {
-            if(this.table[i]) {
-                console.log("hash table",this.table[i])
+            let keyRay = bucket.find(arr => arr[0] === key);
+            if(keyRay) {
+                bucket.splice(bucket.indexOf(keyRay), 1);
             }
         }
     }
-
 }
 
+const table = new HashTable(50);
+table.set("name", "hudyfa");
+table.set("eman", "very low");
+table.set("work ethic", "improved");
+console.log(table.get("name"));
+console.log(table.get("eman"));
+table.remove("work ethic");
+console.log(table.get("work ethic"));

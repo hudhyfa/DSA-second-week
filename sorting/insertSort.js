@@ -25,3 +25,5 @@ function insertSort(arr) {
 let result = insertSort([-7,10,4,-2,1,1,66,11]);
 console.log(result);
 
+
+

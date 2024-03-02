@@ -17,3 +17,4 @@ function select(arr) {
 // best, avg, worst case O(n^2);
 const result = select([4,3,78,44,223]);
 console.log(result);
+
